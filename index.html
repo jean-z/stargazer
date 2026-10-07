@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>今晚观星 · 天象日历</title>
+<meta name="description" content="今晚能不能看星星？观星指数、天光时间线、可见行星、月相与天象日历。">
+</head>
+<body>
+<div id="root"></div>
+<script>
+  // 调试用：把运行时错误暴露到标题
+  window.addEventListener('error', (e) => { document.title = 'ERR: ' + e.message + ' @ ' + (e.filename || '').split('/').pop() + ':' + e.lineno; });
+  window.addEventListener('unhandledrejection', (e) => { document.title = 'REJ: ' + ((e.reason && e.reason.message) || e.reason); });
+</script>
+<script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

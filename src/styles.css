@@ -1,0 +1,116 @@
+/* 今晚观星 —— 手机优先单列卡片布局 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: radial-gradient(ellipse at 50% -20%, #0d2036 0%, #01040a 62%);
+  color: #d7ecf7;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 18px 14px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+header { text-align: center; padding: 4px 0 2px; }
+header h1 {
+  font-size: 22px; font-weight: 900; letter-spacing: .1em; color: #f2fbff;
+  text-shadow: 0 0 24px rgba(120, 210, 255, .4);
+}
+header .loc {
+  margin-top: 8px; cursor: pointer; font: inherit; font-size: 12.5px;
+  color: #bfeaff; background: rgba(159, 220, 255, .08);
+  border: 1px solid rgba(159, 220, 255, .3);
+  border-radius: 999px; padding: 5px 14px;
+}
+header .loc:hover { background: rgba(159, 220, 255, .16); }
+header .coords { margin-top: 6px; font-size: 11px; color: rgba(160, 205, 226, .55); }
+
+/* ---------- 卡片通用 ---------- */
+.card {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(2, 12, 24, .55);
+  border: 1px solid rgba(140, 220, 255, .16);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+}
+.card h2 {
+  font-size: 13px; font-weight: 700; letter-spacing: .12em;
+  color: #9fdcff; margin-bottom: 10px;
+}
+.card h2 .hint { font-weight: 400; letter-spacing: 0; color: rgba(160, 205, 226, .55); font-size: 11px; }
+.k { color: rgba(160, 205, 226, .7); font-size: 11px; letter-spacing: .14em; }
+.empty { font-size: 12.5px; color: rgba(160, 205, 226, .55); }
+
+/* ---------- 观星指数 ---------- */
+.score-row { display: flex; align-items: center; gap: 18px; }
+.score-num {
+  font-size: 58px; font-weight: 900; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.grade { font-size: 16px; font-weight: 800; margin-bottom: 5px; }
+.reason { font-size: 12.5px; line-height: 1.6; color: rgba(190, 220, 236, .75); }
+
+/* ---------- 时间线 ---------- */
+.tl-bar {
+  position: relative; height: 14px; border-radius: 7px;
+  background: linear-gradient(90deg, #0a1a2e 0%, #233d5c 12%, #c8dcf0 30%, #f0e6c8 50%, #c8dcf0 70%, #233d5c 88%, #0a1a2e 100%);
+  overflow: visible; margin-bottom: 12px;
+}
+.tl-night {
+  position: absolute; top: -3px; height: 20px;
+  background: rgba(2, 8, 18, .72);
+  border: 1px solid rgba(120, 210, 255, .25); border-radius: 10px;
+}
+.tl-dot {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #9fdcff; box-shadow: 0 0 8px rgba(159, 220, 255, .8);
+}
+.tl-times {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px;
+  font-size: 12px; font-variant-numeric: tabular-nums;
+}
+.tl-item { display: flex; justify-content: space-between; gap: 8px; }
+.tl-item .k { width: auto; }
+.tl-item.moon span:last-child { color: #e8ecb8; }
+.tl-item.deep span:last-child { color: #8fa8c8; }
+.tl-item.sky span:last-child { color: #ffd27a; }
+
+/* ---------- 月亮 ---------- */
+.moon-row { display: flex; align-items: center; gap: 16px; }
+.moon-info { display: grid; gap: 5px; font-size: 12.5px; }
+.moon-name { font-size: 15px; font-weight: 800; color: #e8ecb8; }
+
+/* ---------- 行星 ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  font-size: 12px; padding: 5px 11px; border-radius: 999px;
+  background: rgba(159, 220, 255, .08);
+  border: 1px solid rgba(159, 220, 255, .3); color: #d7ecf7;
+}
+.chip b { color: #9fdcff; }
+
+/* ---------- 天象日历 ---------- */
+.ev-day { padding: 8px 0; border-top: 1px solid rgba(140, 220, 255, .1); }
+.ev-day:first-of-type { border-top: none; }
+.ev-date { font-size: 12px; font-weight: 800; color: #9fdcff; margin-bottom: 6px; letter-spacing: .06em; }
+.ev-row {
+  display: flex; gap: 10px; align-items: baseline;
+  font-size: 12.5px; padding: 3px 0; flex-wrap: wrap;
+}
+.ev-time { color: rgba(160, 205, 226, .6); font-variant-numeric: tabular-nums; width: 38px; flex: none; }
+.ev-kind { font-weight: 700; color: #d7ecf7; }
+.ev-kind.meteor { color: #7fe07f; }
+.ev-kind.eclipse { color: #ffd27a; }
+.ev-kind.moon { color: #c8d8f0; font-weight: 500; }
+.ev-detail { font-size: 11px; color: rgba(160, 205, 226, .55); }
+
+footer { text-align: center; font-size: 10.5px; color: rgba(160, 205, 226, .4); padding-top: 4px; }
